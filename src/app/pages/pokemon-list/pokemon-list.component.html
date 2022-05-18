@@ -1,0 +1,55 @@
+<div class="container">
+    <div *ngIf="pokemon" class="row">
+        <app-pokemon-form (onSubmit)="formSubmit($event)" [pokemon]="pokemon"></app-pokemon-form>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Lista de Pokemons</h1>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let pokemon of pokemons; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td class="text-capitalize">{{pokemon.name}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info me-1">VER</button>
+                        <button (click)="addPokemon(pokemon)" class="btn btn-sm btn-primary">AGREGAR FAVORITO</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+
+            <h1>Lista de Pokemons Favoritos</h1>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Alias</th>
+                    <th scope="col">Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let pokemon of favPokemons; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td class="text-capitalize">{{pokemon.name}}</td>
+                    <td class="text-capitalize">{{pokemon.alias}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-info me-1">VER</button>
+                        <button (click)="edit(pokemon)" class="btn btn-sm btn-warning me-1">EDITAR</button>
+                        <button class="btn btn-sm btn-primary">AGREGAR FAVORITO</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
