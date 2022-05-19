@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PokemonFormComponent } from './pages/pokemon-list/pokemon-form/pokemon-form.component';
 import { PokemonFavoritesComponent } from './pages/pokemon-favorites/pokemon-favorites.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PokemonFavoritesComponent } from './pages/pokemon-favorites/pokemon-fav
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

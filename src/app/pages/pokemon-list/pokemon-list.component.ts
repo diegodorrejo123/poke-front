@@ -11,6 +11,9 @@ import Swal from 'sweetalert2';
 })
 export class PokemonListComponent implements OnInit {
   show = false;
+  page = 1;
+  itemsPerPage = 10
+  totalPokemons: number;
   pokemons: IPokemonGET[] = []
   pokemon: IPokemonFavorite;
 
@@ -38,9 +41,18 @@ export class PokemonListComponent implements OnInit {
       }
     })
   }
+
+  pageChange(event){
+    console.log(event);
+    this.page = event; 
+    this.pokemons = []; 
+    this.getPokemons()
+  }
   getPokemons(){
-    this.pokemonService.getPokemons(10, 1).subscribe((res)=>{
+    const offset = (this.page * this.itemsPerPage) - this.itemsPerPage
+    this.pokemonService.getPokemons(this.itemsPerPage, offset).subscribe((res)=>{
       this.pokemons = res.results
+      this.totalPokemons = res.count
     })
   }
 
