@@ -13,21 +13,27 @@ export class PokemonFormComponent implements OnInit, OnChanges {
   @Output() onSubmit = new EventEmitter<any>()
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.form = this.formBuilder.group({
+      alias: ['', Validators.required]
+    })
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.pokemon.alias && this.form){
+    if(!this.pokemon?.alias){
       this.form.patchValue({
-        alias: this.pokemon.alias
-      }) 
-     }
+        alias: ''
+      })
+      return
+    }
+    this.form.patchValue({
+      alias: this.pokemon.alias
+    })
   }
 
   ngOnInit(): void {
     console.log(this.pokemon);
-    this.form = this.formBuilder.group({
-      alias: ['', Validators.required]
-    })
+    
   }
 
 

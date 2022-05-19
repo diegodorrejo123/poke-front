@@ -1,10 +1,9 @@
 <div class="container">
-    <div *ngIf="pokemon" class="row">
-        <app-pokemon-form (onSubmit)="formSubmit($event)" [pokemon]="pokemon"></app-pokemon-form>
-    </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="d-flex justify-content-between">
             <h1>Lista de Pokemons</h1>
+        </div>
+        <div class="col-md-6">
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                 <tr>
@@ -18,38 +17,28 @@
                     <th scope="row">{{i + 1}}</th>
                     <td class="text-capitalize">{{pokemon.name}}</td>
                     <td>
-                        <button class="btn btn-sm btn-info me-1">VER</button>
-                        <button (click)="addPokemon(pokemon)" class="btn btn-sm btn-primary">AGREGAR FAVORITO</button>
+                        <button (click)="getPokemon(pokemon)" class="btn btn-sm btn-info me-1">VER</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-6">
-
-            <h1>Lista de Pokemons Favoritos</h1>
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Alias</th>
-                    <th scope="col">Acción</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let pokemon of favPokemons; let i = index">
-                    <th scope="row">{{i + 1}}</th>
-                    <td class="text-capitalize">{{pokemon.name}}</td>
-                    <td class="text-capitalize">{{pokemon.alias}}</td>
-                    <td>
-                        <button class="btn btn-sm btn-info me-1">VER</button>
-                        <button (click)="edit(pokemon)" class="btn btn-sm btn-warning me-1">EDITAR</button>
-                        <button class="btn btn-sm btn-primary">AGREGAR FAVORITO</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div [ngClass]="{'d-none': !show, 'd-block': show }" class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="container d-flex align-items-center flex-column">
+                        <img *ngIf="!pokemon?.image" src="assets/images/poke-default.webp" width="250" alt="">
+                        <img *ngIf="pokemon?.image" [src]="pokemon.image" width="250" alt="">
+                            <div>
+                                <h3 class="card-title text-capitalize">{{pokemon?.name}}</h3>
+                                <h6 class="card-subtitle mb-2 text-muted">Tipos: <span *ngFor="let type of pokemon?.types" class="badge bg-secondary text-capitalize me-1">{{type}}</span></h6>
+                            </div>
+                            <button (click)="addToFavorites()" class="btn btn-sm btn-primary">AGREGAR A FAVORITOS</button>
+                    </div>
+                    
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>

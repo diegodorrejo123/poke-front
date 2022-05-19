@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="row">
+        <h1>Lista de Pokemons Favoritos</h1>
+        <div class="col-md-8">
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Alias</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let pokemon of pokemons; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>
+                        <img *ngIf="pokemon?.image" [src]="pokemon.image" width="32" alt="">
+                    </td>
+                    <td class="text-capitalize">{{pokemon.name}}</td>
+                    <td>{{pokemon.alias}}</td>
+                    <td>{{pokemon.createdAt | date: 'medium'}}</td>
+                    <td>
+                        <button (click)="getPokemon(pokemon)" class="btn btn-sm btn-info me-1">VER</button>
+                        <button (click)="editing(pokemon)" class="btn btn-sm btn-primary me-1">{{pokemon.alias ? 'EDITAR ALIAS' : 'AGREGAR ALIAS'}}</button>
+                        <button (click)="deletePokemon(pokemon)" class="btn btn-sm btn-danger">ELIMINAR</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div [ngClass]="{'d-none': !show && !edit, 'd-block': show || edit }" class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="container d-flex align-items-center flex-column">
+                        <img *ngIf="!pokemon?.image" src="assets/images/poke-default.webp" width="250" alt="">
+                        <img *ngIf="pokemon?.image" [src]="pokemon.image" width="250" alt="">
+                        <div>
+                            <h3 class="card-title text-capitalize">Nombre: {{pokemon?.name}}</h3>
+                            <h3 *ngIf="!edit" class="card-title">Alias: {{pokemon?.alias}}</h3>
+                            <h6 class="card-subtitle mb-2 text-muted">{{pokemon?.types.length > 1 ? 'Tipos' : 'Tipo'}}: <span *ngFor="let type of pokemon?.types" class="badge bg-secondary text-capitalize me-1">{{type}}</span></h6>
+                        </div>
+                        <div [ngClass]="{'d-none': !edit, 'd-block': edit}">
+                            <form [formGroup]="form">
+
+                                <div class="form-group">
+
+                                    <label for="">Alias <span class="text-danger">*</span></label>
+                                    <input formControlName="alias" class="form-control" type="text">
+                                    <span *ngIf="formIsInvalid" class="text-danger">{{getError('alias')}}</span>
+                                </div>
+                                <button (click)="save()" class="btn btn-success btn-sm mt-1">GUARDAR</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+</div>

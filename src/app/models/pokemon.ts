@@ -2,11 +2,11 @@ export interface IPokemonGET {
     name: string;
     url: string;
 }
-export interface IFavPokemon {
+export interface IPokemonFavorite {
     name: string;
     image: string;
-    alias: string;
-    createdAt: Date;
+    alias?: string;
+    createdAt?: Date;
     types: string[];
 }
 
