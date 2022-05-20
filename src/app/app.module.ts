@@ -8,7 +8,6 @@ import { PokemonListComponent } from './pages/pokemon-list/pokemon-list.componen
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PokemonFormComponent } from './pages/pokemon-list/pokemon-form/pokemon-form.component';
 import { PokemonFavoritesComponent } from './pages/pokemon-favorites/pokemon-favorites.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -18,7 +17,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NavbarComponent,
     PokemonListComponent,
     NotFoundComponent,
-    PokemonFormComponent,
     PokemonFavoritesComponent
   ],
   imports: [

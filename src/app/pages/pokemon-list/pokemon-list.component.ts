@@ -3,6 +3,8 @@ import { OnInit, Component } from '@angular/core';
 import { IPokemonDetailGET, IPokemonForm, IPokemonGET } from 'src/app/models/pokemon';
 import { PokemonService } from 'src/app/services/pokemon.service';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -18,11 +20,17 @@ export class PokemonListComponent implements OnInit {
   pokemon: IPokemonFavorite;
 
   constructor(
-    private pokemonService: PokemonService
+    private pokemonService: PokemonService,
+    private location: Location,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.getPokemons()
+    this.activatedRoute.queryParams.subscribe((res:any) => {
+      this.page = res.page
+    })
+
   }
 
 
@@ -42,10 +50,15 @@ export class PokemonListComponent implements OnInit {
     })
   }
 
+  writeURL(){
+    this.location.replaceState('', `page=${this.page}`);
+  }
+
   pageChange(event){
     console.log(event);
     this.page = event; 
     this.pokemons = []; 
+    this.writeURL()
     this.getPokemons()
   }
   getPokemons(){

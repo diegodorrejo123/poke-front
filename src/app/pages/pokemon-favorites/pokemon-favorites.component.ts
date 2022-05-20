@@ -12,6 +12,9 @@ import { Component, OnInit } from '@angular/core';
 export class PokemonFavoritesComponent implements OnInit {
   show = false;
   edit =  false;
+  itemsPerPage = 10
+  page = 1
+  totalPokemons;
   formIsInvalid = false;
   pokemons: IPokemonFavorite[] = []
   pokemon: IPokemonFavorite
@@ -70,6 +73,12 @@ export class PokemonFavoritesComponent implements OnInit {
       this.getPokemonByName(pokemon.name)
     }
   }
+  
+  pageChange(event){
+    this.page = event; 
+    this.pokemons = []; 
+    this.getPokemons()
+  }
 
   resetForm(){
     this.form.patchValue({
@@ -83,6 +92,7 @@ export class PokemonFavoritesComponent implements OnInit {
 
   getPokemons(){
     this.pokemons = this.pokemonService.getPokemonFavorites()
+    this.totalPokemons = this.pokemons.length
   }
 
   getError(name:string){
